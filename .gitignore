@@ -142,7 +142,6 @@ GitHub.sublime-settings
 .history
 
 server/local_settings.py
-server/local_settings.example.py
 _to_do.md
 
 .gitignore
