@@ -12,10 +12,11 @@ class Address(models.Model):
     city = models.CharField(verbose_name="City", max_length=64)
     street = models.CharField(verbose_name="Street", max_length=64)
     street_number = models.CharField(verbose_name="Street number", max_length=16)
-    apartment_number = models.CharField(verbose_name="Apartment number", max_length=16, blank=True)
+    apartment_number = models.CharField(verbose_name="Apartment number", max_length=16, null=True, blank=True)
     postal_code = models.CharField(verbose_name="Postal code", max_length=64)
 
     class Meta:
+        unique_together = ('country', 'city', 'street', 'street_number', 'postal_code')
         verbose_name = "Address"
         verbose_name_plural = "Address"
 
@@ -32,7 +33,7 @@ class Address(models.Model):
 class EatingHouse(models.Model):
     name = models.CharField(verbose_name="Name", max_length=255, unique=True)
     phone_number = PhoneNumberField(verbose_name="Phone number", region=LANGUAGE_CODE)
-    address = models.OneToOneField(Address, verbose_name="Address", on_delete=models.PROTECT)
+    address = models.OneToOneField(Address, verbose_name="Address", on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = "Eating House"
